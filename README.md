@@ -1,2 +1,6 @@
-# NodeRESTbasicApp
-A Basic skeleton of Node REST APIS
+# Lowes BL
+
+1. git clone the project
+2. In admin access please npm install
+3. From server please run npm start
+"# lowes_bl" 

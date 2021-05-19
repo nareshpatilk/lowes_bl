@@ -1,0 +1,181 @@
+{
+  "swagger": "2.0",
+  "info": {
+      "description": "Lowe's short url",
+      "version": "1.0.0",
+      "title": "short url API",
+      "contact": {
+          "email": "abc@gmail.com"
+      },
+      "license": {
+          "name": "Apache 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+      }
+  },
+  "schemes": ["http"],
+  "host": "localhost:9001",
+  "basePath": "/lowes",
+  "paths" : {
+      "/findAll" : {
+        "get" : {
+            "summary" : "All url details",
+            "description": "All url details",
+            "produces": ["application/json"],
+            "parameters": [],
+            "responses": {
+                "200": {
+                    "description": "successful operation",
+                    "schema": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/definitions/standardResponse"
+                        }
+                    }
+                },
+                "400": {
+                    "description": "Invalid status value",
+                    "schema": {
+                        "$ref": "#/definitions/InvalidResponse"
+                    }
+                }
+            }
+        }
+    },
+      "/url/save" : {
+          "post" : {
+              "summary" : "Save the url",
+              "description": "Save the url",
+              "produces": ["application/json"],
+              "consumes": ["application/json"],
+              "parameters": [
+                  {
+                      "in": "body",
+                      "name": "body",
+                      "description": "task object",
+                      "required": true,
+                      "schema": {
+                        "$ref": "#/definitions/UrlSave"
+                      }
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "successful operation",
+                      "schema": {
+                          "type": "array",
+                          "items": {
+                              "$ref": "#/definitions/todosResponse"
+                          }
+                      }
+                  },
+                  "400": {
+                      "description": "Invalid status value",
+                      "schema": {
+                          "$ref": "#/definitions/InvalidResponse"
+                      }
+                  }
+              }
+          }
+      },
+      "/{shortUrl}" : {
+        "get" : {
+            "summary" : "Get desired long url",
+            "description": "Get desired long url",
+            "produces": ["application/json"],
+            "parameters": [
+                {
+                    "name": "shortUrl",
+                    "in": "path",
+                    "description": "shortUrl that needs to be finded",
+                    "required": true,
+                    "type": "string"
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "successful operation",
+                    "schema": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/definitions/standardResponse"
+                        }
+                    }
+                },
+                "400": {
+                    "description": "Invalid status value",
+                    "schema": {
+                        "$ref": "#/definitions/InvalidResponse"
+                    }
+                }
+            }
+        }
+    }
+  }, 
+  "definitions": {
+      "todosResponse": {
+          "type": "object",
+          "properties": {
+              "id": {
+                   "type": "integer"
+              },
+              "task": {
+                  "type": "string"
+              },
+              "assignee": {
+                  "type": "string"
+              },
+              "status": {
+                  "type": "string"
+              }
+          }
+      },
+      "standardResponse": {
+        "type": "object",
+        "properties": {
+            "data": {
+                 "type": "integer"
+            },
+            "error": {
+                "type": "string"
+            },
+            "status": {
+                "type": "string"
+            }
+        }
+    },
+      "Task": {
+          "type": "object",
+          "properties": {
+              "task": {
+                  "type": "string"
+              },
+              "assignee": {
+                  "type": "string"
+              },
+              "status": {
+                  "type": "string"
+              }
+          }
+      },
+      "UrlSave": {
+        "type": "object",
+        "properties": {
+            "longUrl": {
+                "type": "string"
+            }
+        }
+    },
+      "InvalidResponse": {
+          "type": "object",
+          "properties": {
+              "statusCode": {
+                  "type": "string"
+              },
+              "message": {
+                  "type": "string"
+              }
+          }
+
+      }
+  }
+}

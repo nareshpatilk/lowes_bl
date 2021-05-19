@@ -4,7 +4,7 @@ var corsFilter = function (router) {
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Methods': 'POST, GET, PUT, OPTIONS, DELETE',
             'Access-Control-Max-Age': '3600',
-            'Access-Control-Allow-Headers': 'Origin,X-Requested-With,Content-Type,Accept,Authorization'
+            'Access-Control-Allow-Headers': 'Origin,X-Requested-With,Content-Type,Accept'
         });
 
         if (request.method === 'OPTIONS') {
