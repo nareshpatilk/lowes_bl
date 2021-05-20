@@ -3,7 +3,7 @@ const props = {
     DEV: {
         app: {
             host: "http://localhost",
-            port: 9001
+            port: process.env.PORT || 9001
         },
         mongodb: {
             username: 'm220student',
