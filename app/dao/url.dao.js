@@ -1,4 +1,3 @@
-const logger = require(`../../logger`);
 const urlSchema = require(`../schemas/url.schema`);
 
 
@@ -10,10 +9,10 @@ let findAll = async () => {
     try {
         let data = await (urlSchema.find() );
         
-        logger.info(`Successfully fetched url all details {{in dao}}${data}`);
+        console.log(`Successfully fetched url all details {{in dao}}${data}`);
         return data;
     } catch (error) {
-        logger.error(`Error in fetching url all details {{in dao}}${error}`);
+        console.error(`Error in fetching url all details {{in dao}}${error}`);
         throw error;
     }
 }
@@ -27,10 +26,10 @@ let saveUrl = async (saveObj) => {
     try {
         let data = await urlSchema.create(saveObj);
         
-        logger.info(`Successfully saved url details {{in dao}}${data}`);
+        console.log(`Successfully saved url details {{in dao}}${data}`);
         return data;
     } catch (error) {
-        logger.error(`Error in saving url  details {{in dao}}${error}`);
+        console.error(`Error in saving url  details {{in dao}}${error}`);
         throw error;
     }
 }
@@ -46,10 +45,10 @@ let saveUrl = async (saveObj) => {
             longUrl: url
         });
         
-        logger.info(`Successfully found url  {{in dao}}${data}`);
+        console.log(`Successfully found url  {{in dao}}${data}`);
         return data;
     } catch (error) {
-        logger.error(`Error in finding url   {{in dao}}${error}`);
+        console.error(`Error in finding url   {{in dao}}${error}`);
         throw error;
     }
 }
@@ -65,10 +64,10 @@ let saveUrl = async (saveObj) => {
             urlCode: urlCode
         });
         
-        logger.info(`Successfully found url code  {{in dao}}${data}`);
+        console.log(`Successfully found url code  {{in dao}}${data}`);
         return data;
     } catch (error) {
-        logger.error(`Error in finding url code  {{in dao}}${error}`);
+        console.error(`Error in finding url code  {{in dao}}${error}`);
         throw error;
     }
 }
@@ -89,10 +88,10 @@ let saveUrl = async (saveObj) => {
                 clickCount: count
             });
         
-        logger.info(`Successfully updated  click count  {{in dao}}${data}`);
+        console.log(`Successfully updated  click count  {{in dao}}${data}`);
         return data;
     } catch (error) {
-        logger.error(`Error in updating click count  {{in dao}}${error}`);
+        console.error(`Error in updating click count  {{in dao}}${error}`);
         throw error;
     }
 }
@@ -106,21 +105,21 @@ let saveUrl = async (saveObj) => {
         let newResultsPerPage = parseInt(resultsPerPage);
         let newPage = parseInt(page);
 
-        logger.info(`page {{in dao}}${page}`);
-        logger.info(`resultsPerPage {{in dao}}${resultsPerPage}`);
+        console.log(`page {{in dao}}${page}`);
+        console.log(`resultsPerPage {{in dao}}${resultsPerPage}`);
 
-        logger.info(`newResultsPerPage {{in dao}}${newResultsPerPage}`);
-        logger.info(`newPage {{in dao}}${newPage}`);
+        console.log(`newResultsPerPage {{in dao}}${newResultsPerPage}`);
+        console.log(`newPage {{in dao}}${newPage}`);
 
         let data = await urlSchema.find({})
         .sort({shortUrl:"asc"})
         .limit(newResultsPerPage)
         .skip(newPage) ;
         
-        logger.info(`Successfully fetched url findByPagination {{in dao}}${data}`);
+        console.log(`Successfully fetched url findByPagination {{in dao}}${data}`);
         return data;
     } catch (error) {
-        logger.error(`Error in fetching url findByPagination {{in dao}}${error}`);
+        console.error(`Error in fetching url findByPagination {{in dao}}${error}`);
         throw error;
     }
 }

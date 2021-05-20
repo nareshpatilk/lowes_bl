@@ -1,6 +1,5 @@
 const Response = require(`../response/response.js`);
 const urlService = require(`../services/url.service`);
-const logger = require(`../../logger`);
 
 let init = (router) => {
 
@@ -24,13 +23,13 @@ let findAll = async (req, res) => {
             response.error = null;
             response.status.statusCode = 201;
             response.status.message = `Successfully fetched all url details`;
-            logger.info(`Successfully fetched all url details {{In controller}}`);
+            console.log(`Successfully fetched all url details {{In controller}}`);
             res.status(201).json(response);
         } else {
             response.data = null;
             response.status.statusCode = 401;
             response.status.message = `No url found`;
-            logger.debug(`No url found {{In controller}}`);
+            console.log(`No url found {{In controller}}`);
             res.status(401).json(response);
         }
     } catch (error) {
@@ -38,7 +37,7 @@ let findAll = async (req, res) => {
         response.error = error.message;
         response.status.statusCode = 500;
         response.status.message = `Somthing Broke!, please try after sometime`;
-        logger.error(`Error fetching First url details {{In controller}}${error}`);
+        console.error(`Error fetching First url details {{In controller}}${error}`);
         //next(error);
         res.status(500).json(response);
     }
@@ -59,13 +58,13 @@ let saveUrl = async (req, res) => {
             response.error = null;
             response.status.statusCode = 201;
             response.status.message = `Successfully saved url details`;
-            logger.info(`Successfully url details {{In controller}}`);
+            console.log(`Successfully url details {{In controller}}`);
             res.status(201).json(response);
         } else {
             response.data = null;
             response.status.statusCode = 401;
             response.status.message = `Internal error. Please come back later.`;
-            logger.debug(`Url not saved {{In controller}}`);
+            console.log(`Url not saved {{In controller}}`);
             res.status(401).json(response);
         }
     } catch (error) {
@@ -73,7 +72,7 @@ let saveUrl = async (req, res) => {
         response.error = error.message;
         response.status.statusCode = 500;
         response.status.message = `Somthing Broke!, please try after sometime`;
-        logger.error(`Error fetching First url details {{In controller}}${error}`);
+        console.error(`Error fetching First url details {{In controller}}${error}`);
         //next(error);
         res.status(500).json(response);
     }
@@ -89,15 +88,15 @@ let findLongUrl = async (req, res) => {
     const urlCode = req.params.shortUrl;
     
     try {
-        logger.info(` req.params {{In controller}} ${req.params}`);
-        logger.info(` shortlUrl {{In controller}} ${urlCode}`);
+        console.log(` req.params {{In controller}} ${req.params}`);
+        console.log(` shortlUrl {{In controller}} ${urlCode}`);
         let url = await urlService.findUrlCode(urlCode);
         if(url == null){
 
             response.data = null;
             response.status.statusCode = 404;
             response.status.message = `The short url doesn't exists`;
-            logger.debug(`The short url doesn't exists {{In controller}}`);
+            console.log(`The short url doesn't exists {{In controller}}`);
             res.status(404).json(response);
         }else{
             const data = await urlService.updateClickCode(url.clickCount, urlCode);
@@ -106,13 +105,13 @@ let findLongUrl = async (req, res) => {
                 response.error = null;
                 response.status.statusCode = 201;
                 response.status.message = `Successfully updated and sent longurl details`;
-                logger.info(`Successfully url details {{In controller}}`);
+                console.log(`Successfully url details {{In controller}}`);
                 res.status(201).json(response);
             } else {
                 response.data = null;
                 response.status.statusCode = 401;
                 response.status.message = `Internal error. Please come back later.`;
-                logger.debug(`Url not saved {{In controller}}`);
+                console.log(`Url not saved {{In controller}}`);
                 res.status(401).json(response);
             }
         }
@@ -122,7 +121,7 @@ let findLongUrl = async (req, res) => {
         response.error = error.message;
         response.status.statusCode = 500;
         response.status.message = `Somthing Broke!, please try after sometime`;
-        logger.error(`Error fetching First url details {{In controller}}${error}`);
+        console.error(`Error fetching First url details {{In controller}}${error}`);
         //next(error);
         res.status(500).json(response);
     }
@@ -145,13 +144,13 @@ let pagination = async (req, res) => {
             response.error = null;
             response.status.statusCode = 201;
             response.status.message = `Successfully fetched all url pagination`;
-            logger.info(`Successfully fetched all url pagination {{In controller}}`);
+            console.log(`Successfully fetched all url pagination {{In controller}}`);
             res.status(201).json(response);
         } else {
             response.data = null;
             response.status.statusCode = 401;
             response.status.message = `No url found`;
-            logger.debug(`No url found {{In controller}}`);
+            console.log(`No url found {{In controller}}`);
             res.status(401).json(response);
         }
     } catch (error) {
@@ -159,7 +158,7 @@ let pagination = async (req, res) => {
         response.error = error.message;
         response.status.statusCode = 500;
         response.status.message = `Somthing Broke!, please try after sometime`;
-        logger.error(`Error fetching First url details {{In controller}}${error}`);
+        console.error(`Error fetching First url details {{In controller}}${error}`);
         //next(error);
         res.status(500).json(response);
     }

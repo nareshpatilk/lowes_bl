@@ -6,7 +6,6 @@
  const mongoose = require("mongoose");
  const MongoClient = require('mongodb');
 
- const logger = require("../logger");
  
  /**
   * This function establishes the connection to mongo
@@ -14,8 +13,8 @@
   */
  connect = (environ) => {
  
-     logger.info("mongo db host : " + config.mongodb.host);
-     logger.info("mongo db host after trim : " + config.mongodb.host.trim());
+     console.log("mongo db host : " + config.mongodb.host);
+     console.log("mongo db host after trim : " + config.mongodb.host.trim());
  
      let url;
      // Checking the environment
@@ -41,27 +40,27 @@
 
      
 
-     logger.info("MONGO DB CONNECTION URL : " + url);
+     console.log("MONGO DB CONNECTION URL : " + url);
  
      try {
          
         mongoose.connect(url,options)
         .then(() => {
-                logger.info(" Mongoose is connected") 
+                console.log(" Mongoose is connected") 
         });;
 
          //Logging based on events emitted by mongo connection
          mongoose.connection.on('connected', function () {
-             logger.info("Connection to Mongo established successfully");
+             console.log("Connection to Mongo established successfully");
         });
  
         mongoose.connection.on('error', function (err) {
-            logger.error('Connection to mongo failed ' + err);
+            console.error('Connection to mongo failed ' + err);
         });
 
      
         } catch (error) {
-            logger.info(" Mongoose is connection failed");
+            console.log(" Mongoose is connection failed");
             console.log(error);
      }
      

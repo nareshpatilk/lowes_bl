@@ -1,4 +1,3 @@
-const logger = require(`../../logger`);
 const shortid = require("shortid");
 const validUrl = require("valid-url");
 const config = require(`../../config/config`).props();
@@ -15,10 +14,10 @@ const findAll =  async () => {
 
     try {
             let res = await urlDao.findAll();
-            logger.info(`Succesfully fetched all url {{in service}} ${res}`  );
+            console.log(`Succesfully fetched all url {{in service}} ${res}`  );
             return res;
         } catch (error) {
-            logger.error(`Error in fetching url all data  {{in service}} ${error}`);
+            console.error(`Error in fetching url all data  {{in service}} ${error}`);
             throw error;
         }
 
@@ -33,10 +32,10 @@ const saveUrl =  async (reqBody) => {
 
     let res = null;
     try {
-            logger.info(`Saving  url details {{in service}} ${reqBody}`  );
+            console.log(`Saving  url details {{in service}} ${reqBody}`  );
             
             const baseUrl = config.baseURL;
-            logger.info(`Base url {{in service}} ${baseUrl}`  );
+            console.log(`Base url {{in service}} ${baseUrl}`  );
             /**
              * check validiity 
              */
@@ -45,13 +44,13 @@ const saveUrl =  async (reqBody) => {
             }
 
             const urlCode = shortid.generate();
-            logger.info(`urlCode {{in service}} ${urlCode}`  );
+            console.log(`urlCode {{in service}} ${urlCode}`  );
             let url = null;
             if(validUrl.isUri(baseUrl)){
                 
-                logger.info(`longUrl {{in service}} ${reqBody.longUrl}`  );
+                console.log(`longUrl {{in service}} ${reqBody.longUrl}`  );
                 res = await urlDao.findUrl(reqBody.longUrl);
-                logger.info(`Url early found {{in service}} ${res}`  );
+                console.log(`Url early found {{in service}} ${res}`  );
 
                 if(res){
                     return res;
@@ -59,7 +58,7 @@ const saveUrl =  async (reqBody) => {
                 
                     const shortUrl = baseUrl + "/" + urlCode;
                     let saveMapper = urlMapper.saveUrlObj(reqBody, urlCode, shortUrl);
-                    logger.info(`saving to dao {{in service}} ${saveMapper}`  );
+                    console.log(`saving to dao {{in service}} ${saveMapper}`  );
                     res = await urlDao.saveUrl(saveMapper);
                 
                 }
@@ -68,10 +67,10 @@ const saveUrl =  async (reqBody) => {
 
             
             
-            logger.info(`Succesfully saving  url {{in service}} ${res}`  );
+            console.log(`Succesfully saving  url {{in service}} ${res}`  );
             return res;
         } catch (error) {
-            logger.error(`Error in saving url data  {{in service}} ${error}`);
+            console.error(`Error in saving url data  {{in service}} ${error}`);
             throw error;
         }
 
@@ -87,10 +86,10 @@ const saveUrl =  async (reqBody) => {
 
     try {
             let res = await urlDao.findUrlCode(urlCode);
-            logger.info(`Succesfully fetched  url code{{in service}} ${res}`  );
+            console.log(`Succesfully fetched  url code{{in service}} ${res}`  );
             return res;
         } catch (error) {
-            logger.error(`Error in fetching url code  {{in service}} ${error}`);
+            console.error(`Error in fetching url code  {{in service}} ${error}`);
             throw error;
         }
 
@@ -105,14 +104,14 @@ const saveUrl =  async (reqBody) => {
     try {
             count++;
 
-            logger.info(`new  click count{{in service}} ${count}`  );
-            logger.info(`urlCode {{in service}} ${urlCode}`  );
+            console.log(`new  click count{{in service}} ${count}`  );
+            console.log(`urlCode {{in service}} ${urlCode}`  );
              await urlDao.updateClickCode(count, urlCode);
              let res = await urlDao.findUrlCode(urlCode);
-            logger.info(`Succesfully updated click count{{in service}} ${res}`  );
+            console.log(`Succesfully updated click count{{in service}} ${res}`  );
             return res;
         } catch (error) {
-            logger.error(`Error in updating click count  {{in service}} ${error}`);
+            console.error(`Error in updating click count  {{in service}} ${error}`);
             throw error;
         }
 
@@ -130,10 +129,10 @@ const saveUrl =  async (reqBody) => {
             let res = await urlDao.findByPagination(page, resultsPerPage);
             let resLength = await urlDao.findAll();
             let data = urlMapper.paginationObj(res, resLength.length);
-            logger.info(`Succesfully fetched all url {{in service}} ${data}`  );
+            console.log(`Succesfully fetched all url {{in service}} ${data}`  );
             return data;
         } catch (error) {
-            logger.error(`Error in fetching url all data  {{in service}} ${error}`);
+            console.error(`Error in fetching url all data  {{in service}} ${error}`);
             throw error;
         }
 

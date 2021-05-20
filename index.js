@@ -7,7 +7,6 @@ const configObj = require("./config/config");
 configObj.setEnv(process.argv[2]);
 
 const config = configObj.props();
-const logger = require("./logger");
 
 const Mongoose = require("./config/mongoose")
 
@@ -22,8 +21,8 @@ const httpsServer = http.createServer(apis.app);
 
 
 let index = httpsServer.listen(PORT, function () {
-    logger.info(`Basic Node Services listening on port  ${PORT}` );
-    logger.info(`Started Base Service on :  ${config.app.host}:${PORT}`);
+    console.log(`Basic Node Services listening on port  ${PORT}` );
+    console.log(`Started Base Service on :  ${config.app.host}:${PORT}`);
 });
 
 module.exports = index;
