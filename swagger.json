@@ -109,7 +109,47 @@
                 }
             }
         }
-    }
+    },
+    "/pagination/{page}/{pageSize}" : {
+      "get" : {
+          "summary" : "Get pagination url",
+          "description": "Get pagination url",
+          "produces": ["application/json"],
+          "parameters": [
+              {
+                  "name": "page",
+                  "in": "path",
+                  "description": "Page number",
+                  "required": true,
+                  "type": "integer"
+              },
+              {
+                "name": "pageSize",
+                "in": "path",
+                "description": "Page size",
+                "required": true,
+                "type": "integer"
+            }
+          ],
+          "responses": {
+              "200": {
+                  "description": "successful operation",
+                  "schema": {
+                      "type": "array",
+                      "items": {
+                          "$ref": "#/definitions/standardResponse"
+                      }
+                  }
+              },
+              "400": {
+                  "description": "Invalid status value",
+                  "schema": {
+                      "$ref": "#/definitions/InvalidResponse"
+                  }
+              }
+          }
+      }
+  }
   }, 
   "definitions": {
       "todosResponse": {

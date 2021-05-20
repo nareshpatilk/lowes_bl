@@ -118,11 +118,33 @@ const saveUrl =  async (reqBody) => {
 
 }
 
+/**
+ * gives result by pagination
+ * @param {*} page 1,2,3
+ * @param {*} resultsPerPage 5
+ * @returns 
+ */
+ const paginationService =  async ( page, resultsPerPage) => {
+
+    try {
+            let res = await urlDao.findByPagination(page, resultsPerPage);
+            let resLength = await urlDao.findAll();
+            let data = urlMapper.paginationObj(res, resLength.length);
+            logger.info(`Succesfully fetched all url {{in service}} ${data}`  );
+            return data;
+        } catch (error) {
+            logger.error(`Error in fetching url all data  {{in service}} ${error}`);
+            throw error;
+        }
+
+}
+
 module.exports = {
     findAll: findAll,
     saveUrl:saveUrl,
     findUrlCode:findUrlCode,
-    updateClickCode:updateClickCode
+    updateClickCode:updateClickCode,
+    paginationService:paginationService
 }
 
 

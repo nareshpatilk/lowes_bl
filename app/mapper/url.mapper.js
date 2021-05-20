@@ -11,6 +11,17 @@ let saveUrlObj = (reqBody, urlCode, shortUrl) => {
     return saveObj;
 }
 
+let paginationObj = (pagedResult, count) => {
+    
+    let obj = {};
+    obj.urlList = pagedResult;
+    obj.size= count;
+    
+
+    return obj;
+}
+
 module.exports = {
-    saveUrlObj: saveUrlObj
+    paginationObj: paginationObj,
+    saveUrlObj:saveUrlObj
 }

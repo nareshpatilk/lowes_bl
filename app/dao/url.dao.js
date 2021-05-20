@@ -97,12 +97,40 @@ let saveUrl = async (saveObj) => {
     }
 }
 
+/**
+ * pagination support
+ * @returns 
+ */
+ let findByPagination = async ( page, resultsPerPage ) => {
+    try {
+        let newResultsPerPage = parseInt(resultsPerPage);
+        let newPage = parseInt(page);
+
+        logger.info(`page {{in dao}}${page}`);
+        logger.info(`resultsPerPage {{in dao}}${resultsPerPage}`);
+
+        logger.info(`newResultsPerPage {{in dao}}${newResultsPerPage}`);
+        logger.info(`newPage {{in dao}}${newPage}`);
+
+        let data = await urlSchema.find({})
+        .sort({shortUrl:"asc"})
+        .limit(newResultsPerPage)
+        .skip(newPage) ;
+        
+        logger.info(`Successfully fetched url findByPagination {{in dao}}${data}`);
+        return data;
+    } catch (error) {
+        logger.error(`Error in fetching url findByPagination {{in dao}}${error}`);
+        throw error;
+    }
+}
 
 module.exports = {
     findAll: findAll,
     saveUrl:saveUrl,
     findUrl:findUrl,
     findUrlCode:findUrlCode,
-    updateClickCode:updateClickCode
+    updateClickCode:updateClickCode,
+    findByPagination:findByPagination
     
 }

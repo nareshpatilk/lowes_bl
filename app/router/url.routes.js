@@ -7,9 +7,14 @@ let init = (router) => {
     router.route(`/findAll`).get(findAll);
     router.route(`/url/save`).post(saveUrl);
     router.route(`/:shortUrl`).get(findLongUrl);
+    router.route(`/pagination/:page/:pageSize`).get(pagination);
 }
 
-
+/**
+ * list all the url
+ * @param {*} req 
+ * @param {*} res 
+ */
 let findAll = async (req, res) => {
     const response = new Response();
     try {
@@ -39,6 +44,11 @@ let findAll = async (req, res) => {
     }
 }
 
+/**
+ * Save longurl to short url
+ * @param {} req 
+ * @param {*} res 
+ */
 let saveUrl = async (req, res) => {
     const response = new Response();
     const reqBody = req.body;
@@ -69,6 +79,11 @@ let saveUrl = async (req, res) => {
     }
 }
 
+/**
+ * update click count and find url
+ * @param {*} req 
+ * @param {*} res 
+ */
 let findLongUrl = async (req, res) => {
     const response = new Response();
     const urlCode = req.params.shortUrl;
@@ -114,5 +129,40 @@ let findLongUrl = async (req, res) => {
 }
 
 
+/**
+ *  do a pagination api
+ * @param {*} req 
+ * @param {*} res 
+ */
+let pagination = async (req, res) => {
+    const response = new Response();
+    const resultsPerPage = req.params.pageSize >= 1 ? req.params.pageSize : 5;
+    let page = req.params.page >= 1 ? req.params.page : 1;
+    try {
+        const data = await urlService.paginationService(page,resultsPerPage );
+        if (data) {
+            response.data = data
+            response.error = null;
+            response.status.statusCode = 201;
+            response.status.message = `Successfully fetched all url pagination`;
+            logger.info(`Successfully fetched all url pagination {{In controller}}`);
+            res.status(201).json(response);
+        } else {
+            response.data = null;
+            response.status.statusCode = 401;
+            response.status.message = `No url found`;
+            logger.debug(`No url found {{In controller}}`);
+            res.status(401).json(response);
+        }
+    } catch (error) {
+        response.data = null;
+        response.error = error.message;
+        response.status.statusCode = 500;
+        response.status.message = `Somthing Broke!, please try after sometime`;
+        logger.error(`Error fetching First url details {{In controller}}${error}`);
+        //next(error);
+        res.status(500).json(response);
+    }
+}
 
 module.exports.init = init;
