@@ -1,7 +1,6 @@
 const express = require(`express`);
 const path = require(`path`);
 const bodyParser = require(`body-parser`);
-const morganLogger = require(`morgan`);
 const responseTime = require(`response-time`);
 const swagger = require(`swagger-node-express`);
 
@@ -16,7 +15,6 @@ const app = express();
 const router = express.Router();
 
 
-app.use(morganLogger(`dev`));
 app.use(responseTime());
 
 app.use(bodyParser.json({

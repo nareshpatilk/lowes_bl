@@ -14,7 +14,7 @@ console.log('landing to index routes');
 const apis = require("./config/api-config");
 const PORT = config.app.port;
 const mong = new Mongoose();
-mong.connect(process.argv[2]);
+mong.connect("DEV");
 
 // if https is required, we need to add certficates
 const httpsServer = http.createServer(apis.app);

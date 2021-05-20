@@ -6,8 +6,8 @@ const props = {
             port: process.env.PORT || 9001
         },
         mongodb: {
-            username: 'm220student',
-            password: 'm220password',
+            username: 'm220vercel',
+            password: 'Ed16TOdmxxGlAdQ6',
             host: "mflix.1nptt.mongodb.net",
             dbName: 'sample_mflix'
         },
