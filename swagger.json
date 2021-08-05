@@ -13,7 +13,7 @@
       }
   },
   "schemes": ["http"],
-  "host": "localhost:9001",
+  "host": "localhost:9000",
   "basePath": "/lowes",
   "paths" : {
       "/findAll" : {

@@ -4,6 +4,7 @@
  */
 const http = require('http');
 const configObj = require("./config/config");
+const kafkaConsumer = require('./app/kafka/consumer.js')
 configObj.setEnv(process.argv[2]);
 
 const config = configObj.props();
@@ -19,6 +20,9 @@ mong.connect("DEV");
 // if https is required, we need to add certficates
 const httpsServer = http.createServer(apis.app);
 
+kafkaConsumer.consume().catch((err) => {
+	console.error("error in consumer: ", err)
+})
 
 let index = httpsServer.listen(PORT, function () {
     console.log(`Basic Node Services listening on port  ${PORT}` );
